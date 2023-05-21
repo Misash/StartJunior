@@ -5,6 +5,6 @@ export const pool = new createPool({
     port: 3306,
     user: "root",
     password: "1234",
-    database: "makerpunks"
+    database: "startjunior"
 })
 
