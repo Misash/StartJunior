@@ -1,0 +1,17 @@
+
+.myProject{
+    margin: 5%;
+}
+
+btn-project{
+    display: inline-block
+}
+
+
+.mylogo {
+    max-height: 250px;
+    object-fit: contain;
+    /* filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px); */
+}
+
