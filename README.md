@@ -14,17 +14,12 @@ cd StartJunior
 
 ```
 cd client/
-
 npm install
-
 npm start
-
 ```
 ## Run Client
 
 ```
 npm install
-
 npm start
-
 ```
