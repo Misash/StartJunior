@@ -13,18 +13,17 @@ export const createProject = async (req, res) => {
         topics,
         contact,
         website,
-        repo
     } = req.body
     const logo = req.files[0].filename
 
 
     // insert project
     let sql = "insert into\
-    projects(name,description,contact,website,repo,org_name,logo)\
-    values(?,?,?,?,?,?,?)"
+    projects(name,description,contact,website,org_name,logo)\
+    values(?,?,?,?,?,?)"
     let [result] = await pool.query(
         sql,
-        [projectName, description, contact, website, repo, orgName, logo]
+        [projectName, description, contact, website, orgName, logo]
     )
 
 
@@ -147,7 +146,6 @@ export const getProject = async (req, res) => {
         p.description, 
         p.contact, 
         p.website, 
-        p.repo, 
         p.org_name, 
         p.logo,
         GROUP_CONCAT(DISTINCT ia.name) AS impact_areas,

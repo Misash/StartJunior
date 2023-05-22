@@ -177,7 +177,7 @@ function CreatePost() {
     //check if any field is empty
     if (projectName.length && description.length && !isEmptyTechs() &&
        orgName.length && !isEmptyImpactAreas() && !isEmptyTopics() && contact.length
-      && website.length && repo.length && (logo != undefined)) {
+      && website.length && (logo != undefined)) {
 
       console.log("ENTROOOOOOOOOOOOOOOO PTM")
       const data = new FormData()
@@ -222,7 +222,7 @@ function CreatePost() {
       data.append("logo", logo)
       data.append("contact", contact)
       data.append("website", website)
-      data.append("repo", repo)
+      // data.append("repo", repo)
 
       for (var [key, value] of data.entries()) {
         console.log(key, value);
@@ -394,7 +394,6 @@ function CreatePost() {
             <li > {topics && isEmptyTopics() && "Topics"}</li>
             <li > {!contact.length && "Contact"}</li>
             <li > {!website.length && "Website"}</li>
-            <li > {!repo.length && "Repository "}</li>
             <li > {logo === undefined && "Logo"}</li>
 
           </ul>
