@@ -31,23 +31,6 @@ export const createProject = async (req, res) => {
     const idProject = result.insertId
     console.log("Project created", idProject)
 
-
-    //insert skills
-    // for (let i = 0; i < skills.length; i++) {
-    //     // console.log(skills[i], types[i], expLevels[i])
-    //     //insert skills
-    //     const idTech = `select id from technology where name = "${skills[i]}"`
-    //     const idType = `select id from type where name = "${types[i]}"`
-    //     const idExpLevel = `select id from exp_level where name = "${expLevels[i]}"`
-
-    //     sql = `insert into skills(id_project,id_technology,id_type,id_exp_level) values(?,(${idTech}),(${idType}),(${idExpLevel}))`
-
-    //     const [result] = await pool.query(sql, [idProject])
-
-    //     console.log("skill created", result.insertId)
-
-    // }
-
     const relatedData = [
         [techs, 'projects_technologies', 'technology'],
         [impactAreas, 'projects_impact_areas', 'impact_area'],
@@ -235,31 +218,28 @@ export const getImage = async (req, res) => {
     res.sendFile(`${__dirname}/uploads/${filename}`);
 }
 
+export const getProjectImpactAreas = async (req, res) => {
+    const projectId = req.params.id
+    const sql = `select  impact_areas.name 
+    from (select id_impact_area from projects_impact_areas where id_project=?) ia
+    inner join impact_areas 
+    on ia.id_impact_area = impact_areas.id`
+    const [result] = await pool.query(sql, [projectId])
+    res.json(result)
+}
 
-
-
-// export const getProjectImpactAreas = async (req, res) => {
-//     const projectId = req.params.id
-//     const sql = `select  impact_areas.name 
-//     from (select id_impact_area from projects_impact_areas where id_project=?) ia
-//     inner join impact_areas 
-//     on ia.id_impact_area = impact_areas.id`
-//     const [result] = await pool.query(sql, [projectId])
-//     res.json(result)
-// }
-
-// export const getProjectSkills = async (req, res) => {
-//     const projectId = req.params.id
-//     const sql = `select t.name , tp.name , e.name
-//     from (select * from skills where id_project=?) s
-//     inner join technology t
-//     on s.id_technology = t.id
-//     inner join type tp
-//     on s.id_type = tp.id
-//     inner join exp_level e
-//     on s.id_exp_level = e.id`
-//     const [result] = await pool.query(sql, [projectId])
-//     res.json(result)
-// }
+export const getProjectSkills = async (req, res) => {
+    const projectId = req.params.id
+    const sql = `select t.name , tp.name , e.name
+    from (select * from skills where id_project=?) s
+    inner join technology t
+    on s.id_technology = t.id
+    inner join type tp
+    on s.id_type = tp.id
+    inner join exp_level e
+    on s.id_exp_level = e.id`
+    const [result] = await pool.query(sql, [projectId])
+    res.json(result)
+}
 
 
