@@ -131,7 +131,7 @@ function Home() {
   return (
     <div>
      
-      <Canvas/>
+      {/* <Canvas/> */}
       <NavBar />
 
       {/* Impact Areas */}

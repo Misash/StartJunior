@@ -256,17 +256,6 @@ function CreatePost() {
           <HtmlEditor setTextEditor={setDescription} />
         </Form.Group>
         {/* Skills */}
-        {/* <Form.Group className="mb-3" controlId="formSkills">
-          <Form.Label>Skills</Form.Label>
-          <DynamicTable
-            setInputFields={setInputFields}
-            inputFields={inputFields}
-            techs={techs}
-            types={types}
-            expLevels={expLevels} />
-        </Form.Group> */}
-
-        {/* skills simple */}
 
         <Form.Group className="mb-3" controlId="formSkills">
           <Form.Label>Skills</Form.Label> <br />
@@ -290,13 +279,15 @@ function CreatePost() {
         {/* Organization Name */}
         <Form.Group className="mb-3" controlId="formOrgName">
           <Form.Label>Organization Name </Form.Label>
-          <Form.Control type="text" placeholder="Enter the organization name" onChange={(e) => setOrgName(e.target.value)} />
+          <Form.Control type="text" placeholder="Enter the organization name" 
+          onChange={(e) => setOrgName(e.target.value)} />
         </Form.Group>
 
         {/* Logo */}
         <Form.Group className="mb-3" controlId="formLogo">
           <Form.Label>Logo</Form.Label>
-          <Form.Control type="file" accept="image/x-png,image/jpeg" onChange={(e) => setLogo(e.target.files[0])} />
+          <Form.Control type="file" accept="image/x-png,image/jpeg" 
+          onChange={(e) => setLogo(e.target.files[0])} />
         </Form.Group>
 
         {/* Impact Area */}
@@ -351,18 +342,9 @@ function CreatePost() {
         {/* Website */}
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Website</Form.Label>
-          <Form.Control type="text" placeholder="Enter your website's link" onChange={(e) => setWebsite(e.target.value)} />
+          <Form.Control type="text" placeholder="Enter your website's link" 
+          onChange={(e) => setWebsite(e.target.value)} />
         </Form.Group>
-
-        {/* Repository */}
-        {/* <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Repository</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter your repository's link"
-            onChange={(e) => setRepo(e.target.value)}
-          />
-        </Form.Group> */}
 
         <div style={{ textAlign: "center", padding: "1%" }} >
           <Button onClick={submitHandlr} variant="outline-info" type="submit" className="btn-lg">
