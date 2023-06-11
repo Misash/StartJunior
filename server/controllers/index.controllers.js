@@ -3,60 +3,68 @@ import { pool } from "../db.js"
 
 export const createProject = async (req, res) => {
 
+    try {
 
-    const {
-        projectName,
-        description,
-        techs,
-        orgName,
-        impactAreas,
-        topics,
-        contact,
-        website,
-    } = req.body
-    const logo = req.files[0].filename
-
-
-    // insert project
-    let sql = "insert into\
-    projects(name,description,contact,website,org_name,logo)\
-    values(?,?,?,?,?,?)"
-    let [result] = await pool.query(
-        sql,
-        [projectName, description, contact, website, orgName, logo]
-    )
+        const {
+            projectName,
+            description,
+            techs,
+            orgName,
+            impactAreas,
+            topics,
+            contact,
+            website,
+        } = req.body
+        const logo = req.files[0].filename
 
 
-    // get last project's id
-    const idProject = result.insertId
-    console.log("Project created", idProject)
+        // insert project
+        let sql = "insert into\
+        projects(name,description,contact,website,org_name,logo)\
+        values(?,?,?,?,?,?)"
+        let [result] = await pool.query(
+            sql,
+            [projectName, description, contact, website, orgName, logo]
+        )
 
-    const relatedData = [
-        [techs, 'projects_technologies', 'technology'],
-        [impactAreas, 'projects_impact_areas', 'impact_area'],
-        [topics, 'projects_topics', 'topic']
-    ];
 
-    // iterate over each set of related data and insert it into the database
-    for (const [data, table, columnName] of relatedData) {
+        // get last project's id
+        const idProject = result.insertId
+        console.log("Project created", idProject)
 
-        let values
-        if (Array.isArray(data)) {
-            values = data.map(d => [idProject, d]);
-        } else {
-            values = [[idProject, data]]
+        const relatedData = [
+            [techs, 'projects_technologies', 'technology'],
+            [impactAreas, 'projects_impact_areas', 'impact_area'],
+            [topics, 'projects_topics', 'topic']
+        ];
+
+        // iterate over each set of related data and insert it into the database
+        for (const [data, table, columnName] of relatedData) {
+
+            let values
+            if (Array.isArray(data)) {
+                values = data.map(d => [idProject, d]);
+            } else {
+                values = [[idProject, data]]
+            }
+            const sql = `INSERT INTO ${table} (id_project, id_${columnName}) VALUES ?`;
+            try {
+                const [result] = await pool.query(sql, [values]);
+                console.log(`${columnName} related`, result.insertId);
+            } catch (error) {
+                console.log(error)
+            }
         }
-        const sql = `INSERT INTO ${table} (id_project, id_${columnName}) VALUES ?`;
-        try {
-            const [result] = await pool.query(sql, [values]);
-            console.log(`${columnName} related`, result.insertId);
-        } catch (error) {
-            console.log(error)
-        }
+        //success
+        console.log("satus: ", 200);
+        res.sendStatus(200);
+    } catch (error) {
+        //error
+        console.log("satus: ", 500);
+        res.sendStatus(500);
     }
 
 
-    res.send(req.body)
 }
 
 export const getTechnologies = async (req, res) => {
@@ -158,7 +166,7 @@ export const getFilterProjects = async (req, res) => {
     console.log("topics", topics)
 
 
-    let sql =  `SELECT 
+    let sql = `SELECT 
                 p.id, 
                 p.logo, 
                 p.name, 
@@ -200,9 +208,6 @@ export const getFilterProjects = async (req, res) => {
 
     //grupo by
     sql += " GROUP BY p.id"
-
-    
-
 
     try {
         const [result] = await pool.query(sql)

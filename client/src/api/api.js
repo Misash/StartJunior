@@ -1,12 +1,11 @@
 import axios from "axios"
 
-export const url = "http://localhost:4000"
+// export const url = "http://localhost:4000"
+export const url = process.env.REACT_APP_BACKEND_URL 
 
 //create new project's post
-export const createProject = async (data) => {
-    await axios.post(`${url}/createProject `, data).then((response) => {
-        console.log(response.status, response.data)
-    })
+export const createProject = async (data,func) => {
+    await axios.post(`${url}/createProject `, data).then(func)
 }
 
 // get skills technologies 

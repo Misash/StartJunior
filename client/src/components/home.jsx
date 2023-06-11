@@ -13,6 +13,7 @@ import Row from "react-bootstrap/Row";
 import CreatePost from "./CreatePost";
 import "../css/Home.css"
 
+
 import {
   url,
   getImpactAreas,
@@ -203,7 +204,8 @@ function Home() {
             <Card
               id={p.id}
               key={p.id}
-              logo={`${url}/${p.logo}`}
+              // logo={`${url}/${p.logo}`}
+              logo={`https://res.cloudinary.com/dnti3vb59/image/upload/v1/${p.logo}`}
               projectTitle={p.name}
               organizationName={p.org_name}
               impactAreas={p.impact_areas}

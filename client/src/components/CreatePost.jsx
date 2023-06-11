@@ -8,6 +8,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import HtmlEditor from "./HtmlEditor";
 import Modal from 'react-bootstrap/Modal';
 import ToggleButton from "react-bootstrap/ToggleButton";
+import { Alert } from 'react-bootstrap';
 import {
   createProject, getTechs,
   getTypes,
@@ -25,6 +26,26 @@ function CreatePost() {
   const handleShow = () => setShow(true);
 
 
+  const [status, setStatus] = useState(false)
+  const [showChecker, setShowChecker] = useState(false);
+  const handleShowChecker = () => setShowChecker(true);
+  const handleCloseChecker = () => {
+    // id created succesfully
+    if (status) {
+      // redirect to home
+      setShowChecker(false);
+      window.location.href = '/';
+    } else {
+      //reload
+      setShowChecker(false);
+      window.location.reload();
+    }
+  }
+
+  //Alert logo handler 
+  const [showInvalidFormatAlert, setShowInvalidFormatAlert] = useState(false);
+
+
   //project name
   const [projectName, setProjectName] = useState("");
   //description
@@ -39,10 +60,6 @@ function CreatePost() {
   ]);
   //skills/ technologies
   const [techs, setTechs] = useState()
-  // //skills/types
-  // const [types, setTypes] = useState()
-  // //skills/expLeves
-  // const [expLevels, setExpLevels] = useState()
   //organization name
   const [orgName, setOrgName] = useState("");
   //logo file img/png
@@ -170,6 +187,20 @@ function CreatePost() {
   }, [])
 
 
+  const handleLogoChange = (e) => {
+    const file = e.target.files[0];
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+
+    if (file && allowedTypes.includes(file.type)) {
+      setLogo(file);
+      setShowInvalidFormatAlert(false); // Hide the alert if a valid file is selected
+    } else {
+      // setLogo(null);
+      setShowInvalidFormatAlert(true); // Show the alert for invalid file format
+    }
+  }
+
+
 
   //submit form to create a new Project
   const submitHandlr = (e) => {
@@ -179,27 +210,10 @@ function CreatePost() {
        orgName.length && !isEmptyImpactAreas() && !isEmptyTopics() && contact.length
       && website.length && (logo != undefined)) {
 
-      console.log("ENTROOOOOOOOOOOOOOOO PTM")
+    
       const data = new FormData()
 
-      // console.log("projectName: ", projectName)
-      // console.log("description: ", description)
-      // console.log("skills: ", inputFields)
-      // console.log("orgName: ", orgName)
-      // console.log("logo: ", logo)
-      // console.log("impactArea: ", impactArea)
-      // console.log("contact: ", contact)
-      // console.log("website: ", website)
-      // console.log("repo:", repo)
-
-
-      //adding skills
-      // inputFields.map((fields) => {
-      //   if (fields.skill != "") { data.append("skills", fields.skill) }
-      //   if (fields.type != "") { data.append("types", fields.type) }
-      //   if (fields.expLevel != "") { data.append("expLevels", fields.expLevel) }
-      // })
-
+     
       //adding topics
       topics.map((obj) => {
         if (obj.value) { data.append("topics", obj.id) }
@@ -228,8 +242,16 @@ function CreatePost() {
         console.log(key, value);
       }
 
-      //send data to server
-      createProject(data)
+       //send data to server
+       createProject(data, (response) => {
+        if (response.status === 200) {
+          setStatus(true)
+          handleShowChecker()
+        } else {
+          setStatus(false)
+          handleShowChecker()
+        }
+      });
 
     } else {
       handleShow()
@@ -283,12 +305,19 @@ function CreatePost() {
           onChange={(e) => setOrgName(e.target.value)} />
         </Form.Group>
 
+
         {/* Logo */}
         <Form.Group className="mb-3" controlId="formLogo">
           <Form.Label>Logo</Form.Label>
-          <Form.Control type="file" accept="image/x-png,image/jpeg" 
-          onChange={(e) => setLogo(e.target.files[0])} />
+          <Form.Control type="file" accept=".jpg, .jpeg, .png" onChange={(e) => handleLogoChange(e)} />
         </Form.Group>
+
+         {/* Invalid Format Alert */}
+         {showInvalidFormatAlert && (
+          <Alert variant="danger" onClose={() => setShowInvalidFormatAlert(false)} dismissible>
+            Invalid file format. Please select a JPG or PNG file.
+          </Alert>
+        )}
 
         {/* Impact Area */}
         <Form.Group className="mb-3" controlId="formImpactArea">
@@ -353,6 +382,27 @@ function CreatePost() {
         </div>
       </Form>
 
+      {/* Modal succesfully created */}
+      <Modal
+        show={showChecker}
+        onHide={handleCloseChecker}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title></Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {status ? "Your project has been successfully created." :
+            "Your project was not created successfully."}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseChecker}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       {/* modal pop up*/}
 
       <Modal
@@ -367,19 +417,16 @@ function CreatePost() {
         <Modal.Body>
           Don't forget to complete the fields:
           <ul>
-
-            <li > {!projectName.length && "Project Name "}  </li>
-            <li > {!description.length && "Description "}</li>
-            <li > {techs && isEmptyTechs() && "Techs "}</li>
-            <li > {!orgName.length && "Organization Name"}</li>
-            <li > {impactAreas && isEmptyImpactAreas() && "Impact Area"}</li>
-            <li > {topics && isEmptyTopics() && "Topics"}</li>
-            <li > {!contact.length && "Contact"}</li>
-            <li > {!website.length && "Website"}</li>
-            <li > {logo === undefined && "Logo"}</li>
-
+            {!projectName.length && <li>Project Name</li>}
+            {!description.length && <li>Description</li>}
+            {techs && isEmptyTechs() && <li>Techs</li>}
+            {!orgName.length && <li>Organization Name</li>}
+            {impactAreas && isEmptyImpactAreas() && <li>Impact Area</li>}
+            {topics && isEmptyTopics() && <li>Topics</li>}
+            {!contact.length && <li>Contact</li>}
+            {!website.length && <li>Website</li>}
+            {logo === undefined && <li>Logo</li>}
           </ul>
-
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

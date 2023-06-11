@@ -9,11 +9,10 @@ import { createServer } from 'http';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
+
+
 const app = express();
-
-
 app.use(cors())
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json())
 
@@ -21,9 +20,9 @@ app.use(express.json())
 
 
 // Serve static files from the "uploads" directory
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-app.use('/uploads', express.static(join(__dirname, 'uploads')));
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = dirname(__filename);
+// app.use('/uploads', express.static(join(__dirname, 'uploads')));
 
 
 

@@ -70,14 +70,13 @@ function Project() {
         <Card.Img
           className="mylogo mx-auto"
           variant="top"
-          src={`${url}/${project.logo}`}
+          // src={`${url}/${project.logo}`}
+          src={`https://res.cloudinary.com/dnti3vb59/image/upload/v1/${project.logo}`}
         />
-
 
         <Card.Body>
           <Card.Link href={project.contact} target="_blank">Contact</Card.Link>
           <Card.Link href={project.website} target="_blank">Website</Card.Link>
-          <Card.Link href={project.repo} target="_blank">Repository</Card.Link>
         </Card.Body>
         <Card.Body>
           {/* project title */}
