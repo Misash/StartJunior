@@ -75,8 +75,8 @@ function Project() {
         />
 
         <Card.Body>
-          <Card.Link href={project.contact} target="_blank">Contact</Card.Link>
-          <Card.Link href={project.website} target="_blank">Website</Card.Link>
+          <Card.Link href={project.contact} target="_blank" rel="noreferrer">Contact</Card.Link>
+          <Card.Link href={project.website} target="_blank" rel="noreferrer">Website</Card.Link>
         </Card.Body>
         <Card.Body>
           {/* project title */}
