@@ -1,0 +1,31 @@
+
+  
+.neon{
+  color: rgb(0, 255, 255);
+  text-shadow:
+    0 0 5px rgb(0, 234, 255),
+    0 0 10px rgb(0, 255, 255),
+    0 0 20px rgb(0, 255, 242),
+    0 0 40px #0ff,
+    0 0 80px #0ff,
+    0 0 90px #0ff,
+    0 0 100px #0ff,
+    0 0 150px rgb(0, 255, 255);
+}
+  
+.color-nav{
+  background-color: rgb(0, 0, 0);
+  /* margin: 1%; */
+  /* padding: 3%; */
+  color: white;
+}
+
+
+.post-button {
+  margin-right: 10px;
+}
+  
+  
+.brand-title{
+  font-size: 150%;
+}

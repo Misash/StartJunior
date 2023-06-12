@@ -1,0 +1,29 @@
+
+
+.emailBoxForm {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    font-size: small;
+    
+}
+
+.inputEmail{
+    margin-bottom: 1%;
+}
+
+
+.custom-alert{
+    font-size: 0.7em;
+    padding: 4px 8px;
+}
+
+.labelEmail{
+    font-size: 1em;
+    color: aqua;
+}
+
+.EmailBoxContaniner{
+    margin-top: 2%;
+    margin-bottom: 3%;
+}

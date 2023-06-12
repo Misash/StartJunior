@@ -1,0 +1,21 @@
+
+.myForm{
+    margin: 5%;
+    margin-left: 15%;
+    margin-right: 15%;
+    padding: 5%;
+    background-color: rgb(0, 12, 12);
+    color: aqua;
+    border-radius: 15px;
+}
+
+.scrollable-menu {
+    height: 200px;
+    overflow-y: scroll;
+}
+
+
+.btns:hover {
+    background-color: #7ce5ff  !important;
+    color: #000000 !important;
+}
