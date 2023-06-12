@@ -10,17 +10,12 @@ function NavBar() {
     <div>
       <Navbar className="color-nav" bg="dark" expand="lg">
         <Container>
-          <Navbar.Brand className="neon brand-title" href="/">MakerPunks</Navbar.Brand>
+          <Navbar.Brand  className="neon" href="/">{"<StartJr/>"}</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
-              {/* <Nav.Link  className="navLink" href="/Manifesto">Manifesto</Nav.Link> */}
-              <Button className="post-button" variant="outline-info" href="/About">
-                About
-              </Button>
-              <Button className="post-button" variant="info" href="/CreatePost">
-                Post a Project
-              </Button>
+              {/* <Nav.Link href="#link">About</Nav.Link> */}
+              <Button variant="info" href="/CreatePost">Post a Job</Button>{" "}
             </Nav>
           </Navbar.Collapse>
         </Container>

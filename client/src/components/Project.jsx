@@ -24,6 +24,25 @@ function Project() {
   }, [])
 
 
+  // const renderSkills = () => {
+  //   const techs = project.technology_names.split(',')
+  //   const types = project.type_names.split(',')
+  //   const exp = project.exp_names.split(',')
+
+  //   return (
+  //     <div>
+  //       { techs.map((tag, index) => (
+  //         <div key={index}>
+  //           <button >{tag.trim()}</button>
+  //           <button >{types[index].trim()}</button>
+  //           <button >{exp[index].trim()}</button>
+  //           <br />
+  //         </div>
+  //       ))}
+  //     </div>
+  //   )
+  // };
+
   const render = (table) => {
     const data = project[table].split(',')
 
@@ -55,11 +74,9 @@ function Project() {
           src={`https://res.cloudinary.com/dnti3vb59/image/upload/v1/${project.logo}`}
         />
 
-
         <Card.Body>
-          <Card.Link href={project.contact} target="_blank">Contact</Card.Link>
-          <Card.Link href={project.website} target="_blank">Website</Card.Link>
-          <Card.Link href={project.repo} target="_blank">Repository</Card.Link>
+          <Card.Link href={project.contact} target="_blank" rel="noreferrer">Contact</Card.Link>
+          <Card.Link href={project.website} target="_blank" rel="noreferrer">Website</Card.Link>
         </Card.Body>
         <Card.Body>
           {/* project title */}

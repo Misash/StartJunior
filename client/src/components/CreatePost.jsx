@@ -9,10 +9,8 @@ import HtmlEditor from "./HtmlEditor";
 import Modal from 'react-bootstrap/Modal';
 import ToggleButton from "react-bootstrap/ToggleButton";
 import { Alert } from 'react-bootstrap';
-
 import {
-  createProject,
-  getTechs,
+  createProject, getTechs,
   getTypes,
   getExpLevels,
   getImpactAreas,
@@ -26,6 +24,7 @@ function CreatePost() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
 
   const [status, setStatus] = useState(false)
   const [showChecker, setShowChecker] = useState(false);
@@ -61,10 +60,6 @@ function CreatePost() {
   ]);
   //skills/ technologies
   const [techs, setTechs] = useState()
-  // //skills/types
-  // const [types, setTypes] = useState()
-  // //skills/expLeves
-  // const [expLevels, setExpLevels] = useState()
   //organization name
   const [orgName, setOrgName] = useState("");
   //logo file img/png
@@ -212,29 +207,13 @@ function CreatePost() {
     e.preventDefault();
     //check if any field is empty
     if (projectName.length && description.length && !isEmptyTechs() &&
-      orgName.length && !isEmptyImpactAreas() && !isEmptyTopics() && contact.length
-      && website.length && repo.length && (logo != undefined)) {
+       orgName.length && !isEmptyImpactAreas() && !isEmptyTopics() && contact.length
+      && website.length && (logo != undefined)) {
 
+    
       const data = new FormData()
 
-      // console.log("projectName: ", projectName)
-      // console.log("description: ", description)
-      // console.log("skills: ", inputFields)
-      // console.log("orgName: ", orgName)
-      // console.log("logo: ", logo)
-      // console.log("impactArea: ", impactArea)
-      // console.log("contact: ", contact)
-      // console.log("website: ", website)
-      // console.log("repo:", repo)
-
-
-      //adding skills
-      // inputFields.map((fields) => {
-      //   if (fields.skill != "") { data.append("skills", fields.skill) }
-      //   if (fields.type != "") { data.append("types", fields.type) }
-      //   if (fields.expLevel != "") { data.append("expLevels", fields.expLevel) }
-      // })
-
+     
       //adding topics
       topics.map((obj) => {
         if (obj.value) { data.append("topics", obj.id) }
@@ -257,14 +236,14 @@ function CreatePost() {
       data.append("logo", logo)
       data.append("contact", contact)
       data.append("website", website)
-      data.append("repo", repo)
+      // data.append("repo", repo)
 
       for (var [key, value] of data.entries()) {
         console.log(key, value);
       }
 
-      //send data to server
-      createProject(data, (response) => {
+       //send data to server
+       createProject(data, (response) => {
         if (response.status === 200) {
           setStatus(true)
           handleShowChecker()
@@ -273,7 +252,6 @@ function CreatePost() {
           handleShowChecker()
         }
       });
-
 
     } else {
       handleShow()
@@ -291,8 +269,8 @@ function CreatePost() {
       <Form className="myForm" >
         {/* Project Name */}
         <Form.Group className="mb-3" controlId="formProject">
-          <Form.Label> Task / Project Name </Form.Label>
-          <Form.Control type="text" placeholder="e.g. Develop a healthcare app for remote patient monitoring" onChange={(e) => setProjectName(e.target.value)} />
+          <Form.Label> Position </Form.Label>
+          <Form.Control type="text" placeholder="Enter the position" onChange={(e) => setProjectName(e.target.value)} />
         </Form.Group>
         {/* Description */}
         <Form.Group className="mb-3" controlId="formDescription">
@@ -300,23 +278,12 @@ function CreatePost() {
           <HtmlEditor setTextEditor={setDescription} />
         </Form.Group>
         {/* Skills */}
-        {/* <Form.Group className="mb-3" controlId="formSkills">
-          <Form.Label>Skills</Form.Label>
-          <DynamicTable
-            setInputFields={setInputFields}
-            inputFields={inputFields}
-            techs={techs}
-            types={types}
-            expLevels={expLevels} />
-        </Form.Group> */}
-
-        {/* skills simple */}
 
         <Form.Group className="mb-3" controlId="formSkills">
           <Form.Label>Skills</Form.Label> <br />
           {techs && techs.map((tec, index) => (
             <ToggleButton
-              className="btn-space btns"
+              className="btn-space"
               id={index + tec.name}
               type="checkbox"
               variant="outline-info"
@@ -334,8 +301,10 @@ function CreatePost() {
         {/* Organization Name */}
         <Form.Group className="mb-3" controlId="formOrgName">
           <Form.Label>Organization Name </Form.Label>
-          <Form.Control type="text" placeholder="Enter the organization name" onChange={(e) => setOrgName(e.target.value)} />
+          <Form.Control type="text" placeholder="Enter the organization name" 
+          onChange={(e) => setOrgName(e.target.value)} />
         </Form.Group>
+
 
         {/* Logo */}
         <Form.Group className="mb-3" controlId="formLogo">
@@ -343,8 +312,8 @@ function CreatePost() {
           <Form.Control type="file" accept=".jpg, .jpeg, .png" onChange={(e) => handleLogoChange(e)} />
         </Form.Group>
 
-        {/* Invalid Format Alert */}
-        {showInvalidFormatAlert && (
+         {/* Invalid Format Alert */}
+         {showInvalidFormatAlert && (
           <Alert variant="danger" onClose={() => setShowInvalidFormatAlert(false)} dismissible>
             Invalid file format. Please select a JPG or PNG file.
           </Alert>
@@ -356,7 +325,7 @@ function CreatePost() {
 
           {impactAreas && impactAreas.map((area, index) => (
             <ToggleButton
-              className="btn-space btns"
+              className="btn-space"
               id={index + area.name}
               type="checkbox"
               variant="outline-info"
@@ -376,7 +345,7 @@ function CreatePost() {
 
           {topics && topics.map((area, index) => (
             <ToggleButton
-              className="btn-space btns"
+              className="btn-space "
               id={index + area.name}
               type="checkbox"
               variant="outline-info"
@@ -402,17 +371,8 @@ function CreatePost() {
         {/* Website */}
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Website</Form.Label>
-          <Form.Control type="text" placeholder="Enter your website's link" onChange={(e) => setWebsite(e.target.value)} />
-        </Form.Group>
-
-        {/* Repository */}
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Repository</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter your repository's link"
-            onChange={(e) => setRepo(e.target.value)}
-          />
+          <Form.Control type="text" placeholder="Enter your website's link" 
+          onChange={(e) => setWebsite(e.target.value)} />
         </Form.Group>
 
         <div style={{ textAlign: "center", padding: "1%" }} >
@@ -421,7 +381,6 @@ function CreatePost() {
           </Button>
         </div>
       </Form>
-
 
       {/* Modal succesfully created */}
       <Modal
@@ -443,7 +402,6 @@ function CreatePost() {
           </Button>
         </Modal.Footer>
       </Modal>
-
 
       {/* modal pop up*/}
 
@@ -467,7 +425,6 @@ function CreatePost() {
             {topics && isEmptyTopics() && <li>Topics</li>}
             {!contact.length && <li>Contact</li>}
             {!website.length && <li>Website</li>}
-            {!repo.length && <li>Repository</li>}
             {logo === undefined && <li>Logo</li>}
           </ul>
         </Modal.Body>
