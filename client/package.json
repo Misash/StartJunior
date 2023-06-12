@@ -1,7 +1,7 @@
 {
-  "name": "makerpunks_",
+  "name": "makerpunks",
   "version": "0.1.0",
-  "proxy": "http://localhost:3001",
+  "proxy": "http://localhost:3000",
   "private": true,
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
