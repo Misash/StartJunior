@@ -140,7 +140,7 @@ function Home() {
       <Container className="filters">
         { ImpactAreas && ImpactAreas.map((area, index) => (
           <ToggleButton
-            className="btn-space"
+            className="btn-space btn-techs"
             id={index + area.name}
             type="checkbox"
             variant="outline-info"
