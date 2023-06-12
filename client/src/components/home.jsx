@@ -133,6 +133,7 @@ function Home() {
     <div>
      
       {/* <Canvas/> */}
+      <Canvas/>
       <NavBar />
 
       {/* Impact Areas */}

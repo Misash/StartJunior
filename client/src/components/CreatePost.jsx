@@ -283,7 +283,7 @@ function CreatePost() {
           <Form.Label>Skills</Form.Label> <br />
           {techs && techs.map((tec, index) => (
             <ToggleButton
-              className="btn-space"
+              className="btn-space btn-techs"
               id={index + tec.name}
               type="checkbox"
               variant="outline-info"
@@ -325,7 +325,7 @@ function CreatePost() {
 
           {impactAreas && impactAreas.map((area, index) => (
             <ToggleButton
-              className="btn-space"
+              className="btn-space btn-techs"
               id={index + area.name}
               type="checkbox"
               variant="outline-info"
@@ -345,7 +345,7 @@ function CreatePost() {
 
           {topics && topics.map((area, index) => (
             <ToggleButton
-              className="btn-space "
+              className="btn-space btn-techs"
               id={index + area.name}
               type="checkbox"
               variant="outline-info"

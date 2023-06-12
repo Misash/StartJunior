@@ -52,7 +52,14 @@ canvas {
     overflow-y: scroll;
 }
 
-.btn-techs{
+
+
+.btn-techs {
     margin: 0.3%;
     margin-left: 0.3%;
+}
+
+.btn-techs:hover {
+    background-color: #7ce5ff  !important;
+    color: #000000 !important;
 }
